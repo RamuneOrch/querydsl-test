@@ -2,10 +2,16 @@ package com.project.querydsltest.controller;
 
 import com.project.querydsltest.dto.SignUpRequestDto;
 import com.project.querydsltest.dto.UserResponseDto;
+import com.project.querydsltest.dto.user.UserPageResponseDto;
 import com.project.querydsltest.dto.user.UsersResponseDto;
 import com.project.querydsltest.global.response.CommonResponse;
 import com.project.querydsltest.service.user.UserService;
+import jakarta.validation.Valid;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +27,7 @@ public class UserController {
 
     @PostMapping("/users")
     public ResponseEntity<CommonResponse<UserResponseDto>> createUser(
-        @RequestBody SignUpRequestDto req
+        @Valid @RequestBody SignUpRequestDto req
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(
           CommonResponse.<UserResponseDto>builder()
@@ -47,6 +53,18 @@ public class UserController {
             CommonResponse.<UsersResponseDto>builder()
                 .message("회원조회가 성공하였습니다.")
                 .data(userService.getUsers())
+                .build()
+        );
+    }
+
+    @GetMapping("/users/page")
+    public ResponseEntity<CommonResponse<UserPageResponseDto>> getUsersByPage(
+        @PageableDefault(page = 1)Pageable pageable
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(
+            CommonResponse.<UserPageResponseDto>builder()
+                .message("page 테스트 성공")
+                .data(userService.getUserByPage(pageable))
                 .build()
         );
     }
