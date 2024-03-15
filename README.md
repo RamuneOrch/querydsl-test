@@ -37,7 +37,7 @@ public interface UserService {
 
 #### 1. custom Exception 적용
 
-### custom 예외처리 구현
+### custom 예외처리 구현 
 
 ```java
 public class PageNotExistenceException extends
