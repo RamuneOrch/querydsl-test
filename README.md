@@ -37,6 +37,8 @@ public interface UserService {
 
 #### 1. custom Exception 적용
 
+### custom 예외처리 구현 
+
 ```java
 public class PageNotExistenceException extends
     NullPointerException {
@@ -54,13 +56,6 @@ private void validateList(List<UserResponseDto> userLists) {
     }
 }
 ```
-
-#### 2. spring aop 적용
-
-```java
-
-```
-
 ### QueryDSL을 사용하여 검색기능 만들기
 
 #### querydsl을 활용한 유저 전체 조회
