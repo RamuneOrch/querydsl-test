@@ -56,11 +56,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UsersResponseDto getUsers() {
-        QUser qUser = new QUser("u");
-        List<UserResponseDto> users = queryFactory
-            .select(Projections.constructor(UserResponseDto.class, qUser.id, qUser.username))
-            .from(qUser)
-            .fetch();
+        List<UserResponseDto> users = userRepository.getUsers();
         return new UsersResponseDto(users);
     }
 
